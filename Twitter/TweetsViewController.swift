@@ -24,6 +24,7 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tweetsTableView.delegate = self
         self.tweetsTableView.dataSource = self
         self.tweetsTableView.rowHeight = UITableViewAutomaticDimension
         self.tweetsTableView.estimatedRowHeight = 120
@@ -33,6 +34,13 @@ class TweetsViewController: UIViewController {
         self.tweetsTableView.addSubview(refreshControl)
 
         self.fetchTweets(nil)
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let cell = sender as! UITableViewCell
+        let indexPath = self.tweetsTableView.indexPathForCell(cell)!
+        let vc = segue.destinationViewController as! ReplyViewController
+        vc.tweet = self.tweets[indexPath.row]
     }
 
     func fetchTweets(refreshControl: UIRefreshControl?) {
@@ -57,5 +65,11 @@ extension TweetsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
         return cell
+    }
+}
+
+extension TweetsViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
