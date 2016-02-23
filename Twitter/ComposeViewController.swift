@@ -19,6 +19,7 @@ class ComposeViewController: UIViewController {
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var tweetTextView: UITextView!
 
+    var replyToTweet: Tweet?
 
     @IBAction func didTapCancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -26,6 +27,7 @@ class ComposeViewController: UIViewController {
 
     @IBAction func didTapTweet(sender: AnyObject) {
         TwitterClient.sharedClient.tweet(tweetTextView.text,
+            inReplyToTweet: replyToTweet,
             success: { () -> Void in
                 self.dismissViewControllerAnimated(true, completion: nil)
             }) { (error: NSError) -> Void in
@@ -45,8 +47,10 @@ class ComposeViewController: UIViewController {
                 self.profileImageView.setImageWithURL(profileImageUrl)
             }
         }
-
         tweetTextView.text = ""
+        if let screenname = self.replyToTweet?.user?.screenname {
+            tweetTextView.text = "@\(screenname) "
+        }
         tweetTextView.becomeFirstResponder()
     }
 

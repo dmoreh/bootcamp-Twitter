@@ -37,10 +37,12 @@ class TweetsViewController: UIViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let cell = sender as! UITableViewCell
-        let indexPath = self.tweetsTableView.indexPathForCell(cell)!
-        let vc = segue.destinationViewController as! ReplyViewController
-        vc.tweet = self.tweets[indexPath.row]
+        if segue.identifier == "DetailsSegue" {
+            let cell = sender as! UITableViewCell
+            let indexPath = self.tweetsTableView.indexPathForCell(cell)!
+            let vc = segue.destinationViewController as! ReplyViewController
+            vc.tweet = self.tweets[indexPath.row]
+        }
     }
 
     func fetchTweets(refreshControl: UIRefreshControl?) {

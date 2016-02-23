@@ -13,7 +13,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     typealias EmptySuccessCallback = () -> Void
     typealias FailureCallback = (NSError) -> Void
 
-    static let shouldMockTweet = true
+    static let shouldMockPosts = true
 
     static let twitterBaseURL = NSURL(string: "https://api.twitter.com")
     static let twitterConsumerKey = "eILdArI1Y6zCs4yVydfUyaJJu"
@@ -40,14 +40,19 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    func tweet(text: String, success: EmptySuccessCallback, failure: FailureCallback) {
-        guard !TwitterClient.shouldMockTweet else {
+    func tweet(text: String, inReplyToTweet tweet: Tweet?, success: EmptySuccessCallback, failure: FailureCallback) {
+        guard !TwitterClient.shouldMockPosts else {
             success()
             return
         }
 
+        var parameters = ["status": text]
+        if let id = tweet?.id {
+            parameters["in_reply_to_status_id"] = String(id)
+        }
+
         POST("1.1/statuses/update.json",
-            parameters: ["status": text],
+            parameters: parameters,
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 success()
@@ -56,8 +61,36 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    func retweet(success: EmptySuccessCallback, failure: FailureCallback) {
-        
+    func retweet(tweet: Tweet, success: EmptySuccessCallback, failure: FailureCallback) {
+        guard !TwitterClient.shouldMockPosts else {
+            success()
+            return
+        }
+
+        POST("1.1/statuses/retweet/\(tweet.id).json",
+            parameters: nil,
+            progress: nil,
+            success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                success()
+            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+                failure(error)
+        }
+    }
+
+    func favorite(tweet: Tweet, success: EmptySuccessCallback, failure: FailureCallback) {
+        guard !TwitterClient.shouldMockPosts else {
+            success()
+            return
+        }
+
+        POST("1.1/favorites/create.json",
+            parameters: ["id": tweet.id],
+            progress: nil,
+            success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                success()
+            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+                failure(error)
+        }
     }
 
     func login(success: EmptySuccessCallback, failure: FailureCallback) {

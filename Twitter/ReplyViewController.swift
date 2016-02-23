@@ -17,6 +17,8 @@ class ReplyViewController: UIViewController {
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
 
     static private let _dateFormatter = NSDateFormatter()
     static private var dateFormatter: NSDateFormatter {
@@ -26,6 +28,30 @@ class ReplyViewController: UIViewController {
     }
 
     var tweet: Tweet!
+
+    @IBAction func didTapRetweet(sender: AnyObject) {
+        TwitterClient.sharedClient.retweet(self.tweet,
+            success: { () -> Void in
+                self.retweetButton.setBackgroundImage(UIImage(named: "retweet-action-on"), forState: .Normal)
+            }) { (error: NSError) -> Void in
+                print(error.localizedDescription)
+        }
+    }
+
+    @IBAction func didTapFavorite(sender: AnyObject) {
+        TwitterClient.sharedClient.favorite(self.tweet,
+            success: { () -> Void in
+                self.favoriteButton.setBackgroundImage(UIImage(named: "like-action-on"), forState: .Normal)
+            }) { (error: NSError) -> Void in
+                print(error.localizedDescription)
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navController = segue.destinationViewController as! UINavigationController
+        let vc = navController.topViewController as! ComposeViewController
+        vc.replyToTweet = self.tweet
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

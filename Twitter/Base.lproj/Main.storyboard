@@ -193,7 +193,7 @@
                                             <outlet property="screennameLabel" destination="RRE-yH-Z0i" id="VfM-uO-EoQ"/>
                                             <outlet property="tweetTextLabel" destination="H4v-nU-KR4" id="FYW-OE-F4i"/>
                                             <outlet property="tweetedAtLabel" destination="noX-7k-4Ai" id="zM4-Ib-XO6"/>
-                                            <segue destination="xTS-Xm-AvO" kind="show" id="YNs-3T-YEK"/>
+                                            <segue destination="xTS-Xm-AvO" kind="show" identifier="DetailsSegue" id="YNs-3T-YEK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -347,6 +347,22 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hpy-hF-v3S">
+                                <rect key="frame" x="16" y="140" width="343" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="157" id="Mat-xC-0wY"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Mat-xC-0wY"/>
+                                    </mask>
+                                </variation>
+                            </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Fc-RB-ole" userLabel="Top Separator View">
                                 <rect key="frame" x="16" y="322" width="335" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -374,13 +390,9 @@
                                     <constraint firstAttribute="height" constant="25" id="kja-b7-98J"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="reply-action_0"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27u-ed-nK6" userLabel="Retweet Button">
-                                <rect key="frame" x="91" y="378" width="26.5" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="27u-ed-nK6" secondAttribute="height" multiplier="75:72" id="Zmq-G3-8RN"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="retweet-action"/>
+                                <connections>
+                                    <segue destination="exq-mn-SdT" kind="presentation" identifier="ReplySegue" id="Klz-sd-Mjo"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HfC-ws-IIc" userLabel="Favorite Button">
                                 <rect key="frame" x="162" y="378" width="18.5" height="25"/>
@@ -388,6 +400,9 @@
                                     <constraint firstAttribute="width" secondItem="HfC-ws-IIc" secondAttribute="height" multiplier="54:72" id="9gz-Ny-mUw"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="like-action"/>
+                                <connections>
+                                    <action selector="didTapFavorite:" destination="xTS-Xm-AvO" eventType="touchUpInside" id="g2H-ba-BrM"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl4-VY-pdF">
                                 <rect key="frame" x="24" y="338" width="32" height="16"/>
@@ -419,22 +434,16 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hpy-hF-v3S">
-                                <rect key="frame" x="16" y="140" width="343" height="150"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27u-ed-nK6" userLabel="Retweet Button">
+                                <rect key="frame" x="91" y="378" width="26.5" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="157" id="Mat-xC-0wY"/>
+                                    <constraint firstAttribute="width" secondItem="27u-ed-nK6" secondAttribute="height" multiplier="75:72" id="Zmq-G3-8RN"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Mat-xC-0wY"/>
-                                    </mask>
-                                </variation>
-                            </textView>
+                                <state key="normal" backgroundImage="retweet-action"/>
+                                <connections>
+                                    <action selector="didTapRetweet:" destination="xTS-Xm-AvO" eventType="touchUpInside" id="jW3-2c-3MR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -499,13 +508,19 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Tweet" id="fmG-iq-sjc">
-                        <barButtonItem key="rightBarButtonItem" title="Reply" style="done" id="x8Y-9f-NhW"/>
+                        <barButtonItem key="rightBarButtonItem" title="Reply" style="done" id="x8Y-9f-NhW">
+                            <connections>
+                                <segue destination="exq-mn-SdT" kind="presentation" identifier="ReplySegue" id="5VZ-2Q-mbz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="favoriteButton" destination="HfC-ws-IIc" id="dkE-YU-JZZ"/>
                         <outlet property="favoriteCountLabel" destination="OM5-ru-eVq" id="vaZ-kp-oRW"/>
                         <outlet property="nameLabel" destination="Iyv-E6-4D5" id="tii-PN-zbg"/>
                         <outlet property="profileImageView" destination="srN-kv-hrQ" id="7CI-nO-AXo"/>
+                        <outlet property="retweetButton" destination="27u-ed-nK6" id="ZRS-tF-h2v"/>
                         <outlet property="retweetCountLabel" destination="Nl4-VY-pdF" id="QCX-FM-Qsa"/>
                         <outlet property="screennameLabel" destination="HV9-Au-ZCj" id="YaB-Cj-857"/>
                         <outlet property="tweetTextView" destination="hpy-hF-v3S" id="HYn-GE-19w"/>
@@ -559,4 +574,7 @@
         <image name="reply-action_0" width="65" height="72"/>
         <image name="retweet-action" width="75" height="72"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Klz-sd-Mjo"/>
+    </inferredMetricsTieBreakers>
 </document>
