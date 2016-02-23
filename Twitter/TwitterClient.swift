@@ -10,6 +10,11 @@ import BDBOAuth1Manager
 
 class TwitterClient: BDBOAuth1SessionManager {
 
+    typealias EmptySuccessCallback = () -> Void
+    typealias FailureCallback = (NSError) -> Void
+
+    static let shouldMockTweet = true
+
     static let twitterBaseURL = NSURL(string: "https://api.twitter.com")
     static let twitterConsumerKey = "eILdArI1Y6zCs4yVydfUyaJJu"
     static let twitterConsumerSecret = "qRTLDsHAeCK09sjlWcvNcDZC1YE0WNN2jVqIxdtPc9bW4Vtgso"
@@ -20,10 +25,10 @@ class TwitterClient: BDBOAuth1SessionManager {
         consumerSecret: twitterConsumerSecret
     )
 
-    private var loginSuccess: (() -> Void)?
-    private var loginFailure: ((NSError) -> Void)?
+    private var loginSuccess: EmptySuccessCallback?
+    private var loginFailure: FailureCallback?
 
-    func homeTimeline(success: (([Tweet]) -> Void)?, failure: ((NSError) -> Void)?) {
+    func homeTimeline(success: (([Tweet]) -> Void)?, failure: FailureCallback?) {
         GET("1.1/statuses/home_timeline.json",
             parameters: nil,
             progress: nil,
@@ -35,7 +40,23 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    func login(success: () -> Void, failure: (NSError) -> Void) {
+    func tweet(text: String, success: EmptySuccessCallback, failure: FailureCallback) {
+        guard !TwitterClient.shouldMockTweet else {
+            success()
+            return
+        }
+
+        POST("1.1/statuses/update.json",
+            parameters: ["status": text],
+            progress: nil,
+            success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                success()
+            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+                failure(error)
+        }
+    }
+
+    func login(success: EmptySuccessCallback, failure: FailureCallback) {
         self.loginSuccess = success
         self.loginFailure = failure
 
@@ -90,7 +111,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    func currentAccount(success: (User) -> Void, failure: (NSError) -> Void) {
+    func currentAccount(success: (User) -> Void, failure: FailureCallback) {
         GET("1.1/account/verify_credentials.json",
             parameters: nil,
             progress: nil,
