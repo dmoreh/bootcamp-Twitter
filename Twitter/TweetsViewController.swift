@@ -28,15 +28,21 @@ class TweetsViewController: UIViewController {
         self.tweetsTableView.rowHeight = UITableViewAutomaticDimension
         self.tweetsTableView.estimatedRowHeight = 120
 
-        self.fetchTweets()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "fetchTweets:", forControlEvents: .ValueChanged)
+        self.tweetsTableView.addSubview(refreshControl)
+
+        self.fetchTweets(nil)
     }
 
-    private func fetchTweets() {
+    func fetchTweets(refreshControl: UIRefreshControl?) {
         TwitterClient.sharedClient.homeTimeline(
             { (tweets: [Tweet]) -> Void in
                 self.tweets = tweets
+                refreshControl?.endRefreshing()
             }, failure: { (error: NSError) -> Void in
                 print(error.localizedDescription)
+                refreshControl?.endRefreshing()
             }
         )
     }
