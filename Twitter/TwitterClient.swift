@@ -80,7 +80,6 @@ class TwitterClient: BDBOAuth1SessionManager {
                             }, failure: { (error: NSError) -> Void in
                                 self.loginFailure?(error)
                         })
-                        self.loginSuccess?()
                     },
                     failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                         self.loginFailure?(error)
