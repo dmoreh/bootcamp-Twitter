@@ -56,6 +56,10 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    func retweet(success: EmptySuccessCallback, failure: FailureCallback) {
+        
+    }
+
     func login(success: EmptySuccessCallback, failure: FailureCallback) {
         self.loginSuccess = success
         self.loginFailure = failure
