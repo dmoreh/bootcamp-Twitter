@@ -24,6 +24,14 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tweetsTableView.dataSource = self
+        self.tweetsTableView.rowHeight = UITableViewAutomaticDimension
+        self.tweetsTableView.estimatedRowHeight = 120
+
+        self.fetchTweets()
+    }
+
+    private func fetchTweets() {
         TwitterClient.sharedClient.homeTimeline(
             { (tweets: [Tweet]) -> Void in
                 self.tweets = tweets
@@ -31,5 +39,17 @@ class TweetsViewController: UIViewController {
                 print(error.localizedDescription)
             }
         )
+    }
+}
+
+extension TweetsViewController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets?.count ?? 0
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        cell.tweet = tweets[indexPath.row]
+        return cell
     }
 }

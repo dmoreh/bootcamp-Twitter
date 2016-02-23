@@ -13,6 +13,13 @@ class Tweet: NSObject {
     var timestamp: NSDate?
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
+    var user: User?
+
+    static private let _dateFormatter = NSDateFormatter()
+    static private var dateFormatter: NSDateFormatter {
+        _dateFormatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
+        return _dateFormatter
+    }
 
     convenience init(dictionary: NSDictionary) {
         self.init()
@@ -20,12 +27,14 @@ class Tweet: NSObject {
         self.text = dictionary["text"] as? String
         self.retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         self.favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
+        let userDictionary = dictionary["user"] as? NSDictionary
+        if let userDictionary = userDictionary {
+            self.user = User(dictionary: userDictionary)
+        }
 
         let timestampString = dictionary["created_at"] as? String
         if let timestampString = timestampString {
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
-            self.timestamp = formatter.dateFromString(timestampString)
+            self.timestamp = Tweet.dateFormatter.dateFromString(timestampString)
         }
     }
 
