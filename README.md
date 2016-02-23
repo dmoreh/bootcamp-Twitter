@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Smart timestamp labels, e.g. "4m", "16h", or "2/23/15"
 
 ## Video Walkthrough
 

@@ -101,8 +101,11 @@
                                                             <exclude reference="UVE-pR-0Aa"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="didTapReply:" destination="kMh-K5-pfJ" eventType="touchUpInside" id="cp6-TD-Kw9"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOG-OS-sLO" userLabel="Retween Button">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOG-OS-sLO" userLabel="Retweet Button">
                                                     <rect key="frame" x="131" y="88.5" width="26.5" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="tOG-OS-sLO" secondAttribute="height" multiplier="65:72" id="Puf-Nm-zEl"/>
@@ -118,6 +121,9 @@
                                                             <exclude reference="vy3-Qh-DF6"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="kMh-K5-pfJ" eventType="touchUpInside" id="vX7-BB-o87"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVw-gD-IV1" userLabel="Favorite Button">
                                                     <rect key="frame" x="193" y="88.5" width="18.5" height="25"/>
@@ -135,6 +141,9 @@
                                                             <exclude reference="g41-Y9-aQs"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="kMh-K5-pfJ" eventType="touchUpInside" id="d3h-VF-A3U"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@dmoreh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRE-yH-Z0i">
                                                     <rect key="frame" x="166" y="14" width="58.5" height="16"/>
@@ -188,8 +197,11 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="AVw-gD-IV1" id="1Za-CI-ReP"/>
                                             <outlet property="nameLabel" destination="Hyl-UP-Pmx" id="QUi-is-yF0"/>
                                             <outlet property="profileImageView" destination="t68-hs-EGy" id="Sac-aI-I5y"/>
+                                            <outlet property="replyButton" destination="q6f-1T-wIz" id="P2d-rC-zUH"/>
+                                            <outlet property="retweetButton" destination="tOG-OS-sLO" id="91I-W3-c4M"/>
                                             <outlet property="screennameLabel" destination="RRE-yH-Z0i" id="VfM-uO-EoQ"/>
                                             <outlet property="tweetTextLabel" destination="H4v-nU-KR4" id="FYW-OE-F4i"/>
                                             <outlet property="tweetedAtLabel" destination="noX-7k-4Ai" id="zM4-Ib-XO6"/>
@@ -215,7 +227,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="6dg-IF-iQJ">
                             <connections>
-                                <segue destination="exq-mn-SdT" kind="presentation" id="9of-cZ-CDw"/>
+                                <segue destination="exq-mn-SdT" kind="presentation" identifier="ComposeSegue" id="9of-cZ-CDw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -575,6 +587,6 @@
         <image name="retweet-action" width="75" height="72"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Klz-sd-Mjo"/>
+        <segue reference="9of-cZ-CDw"/>
     </inferredMetricsTieBreakers>
 </document>

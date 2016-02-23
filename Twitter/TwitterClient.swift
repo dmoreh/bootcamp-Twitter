@@ -61,9 +61,9 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    func retweet(tweet: Tweet, success: EmptySuccessCallback, failure: FailureCallback) {
+    func retweet(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
-            success()
+            success?()
             return
         }
 
@@ -71,15 +71,15 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: nil,
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                success()
+                success?()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                failure(error)
+                failure?(error)
         }
     }
 
-    func favorite(tweet: Tweet, success: EmptySuccessCallback, failure: FailureCallback) {
+    func favorite(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
-            success()
+            success?()
             return
         }
 
@@ -87,9 +87,9 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: ["id": tweet.id],
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                success()
+                success?()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                failure(error)
+                failure?(error)
         }
     }
 

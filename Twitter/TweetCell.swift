@@ -8,6 +8,12 @@
 
 import UIKit
 
+@objc protocol TweetCellDelegate {
+    optional func tweetCellDidTapReply(tweetCell: TweetCell)
+    optional func tweetCellDidTapRetweet(tweetCell: TweetCell)
+    optional func tweetCellDidTapFavorite(tweetCell: TweetCell)
+}
+
 class TweetCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
@@ -15,6 +21,11 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var tweetedAtLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+
+    weak var delegate: TweetCellDelegate?
 
     static private let _dateFormatter = NSDateFormatter()
     static private var dateFormatter: NSDateFormatter {
@@ -44,6 +55,20 @@ class TweetCell: UITableViewCell {
         super.awakeFromNib()
 
         self.profileImageView.layer.cornerRadius = 5
+    }
+
+    @IBAction func didTapReply(sender: AnyObject) {
+        delegate?.tweetCellDidTapReply?(self)
+    }
+
+    @IBAction func didTapRetweet(sender: AnyObject) {
+        self.retweetButton.setBackgroundImage(UIImage(named: "retweet-action-on"), forState: .Normal)
+        delegate?.tweetCellDidTapRetweet?(self)
+    }
+
+    @IBAction func didTapFavorite(sender: AnyObject) {
+        self.favoriteButton.setBackgroundImage(UIImage(named: "like-action-on"), forState: .Normal)
+        delegate?.tweetCellDidTapFavorite?(self)
     }
 }
 

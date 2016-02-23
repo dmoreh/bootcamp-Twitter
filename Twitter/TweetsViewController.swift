@@ -42,6 +42,12 @@ class TweetsViewController: UIViewController {
             let indexPath = self.tweetsTableView.indexPathForCell(cell)!
             let vc = segue.destinationViewController as! ReplyViewController
             vc.tweet = self.tweets[indexPath.row]
+        } else if segue.identifier == "ComposeSegue" {
+            if let cell = sender as? TweetCell {
+                let navController = segue.destinationViewController as! UINavigationController
+                let vc = navController.topViewController as! ComposeViewController
+                vc.replyToTweet = cell.tweet
+            }
         }
     }
 
@@ -66,6 +72,7 @@ extension TweetsViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
+        cell.delegate = self
         return cell
     }
 }
@@ -73,5 +80,28 @@ extension TweetsViewController: UITableViewDataSource {
 extension TweetsViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+}
+
+extension TweetsViewController: TweetCellDelegate {
+    func tweetCellDidTapFavorite(tweetCell: TweetCell) {
+        TwitterClient.sharedClient.favorite(tweetCell.tweet,
+            success: nil) { (error: NSError) -> Void in
+                print(error.localizedDescription)
+        }
+    }
+
+    func tweetCellDidTapRetweet(tweetCell: TweetCell) {
+        TwitterClient.sharedClient.retweet(tweetCell.tweet,
+            success: nil) { (error: NSError) -> Void in
+                print(error.localizedDescription)
+        }
+    }
+
+    func tweetCellDidTapReply(tweetCell: TweetCell) {
+        self.performSegueWithIdentifier("ComposeSegue", sender: tweetCell)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewControllerWithIdentifier("ComposeViewController") as! ComposeViewController
+//        self.presentViewController(vc, animated: true, completion: nil)
     }
 }
