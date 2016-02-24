@@ -265,7 +265,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@dmoreh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibr-7f-FFu">
-                                <rect key="frame" x="80" y="106.5" width="62.5" height="17"/>
+                                <rect key="frame" x="80" y="106" width="62.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -277,11 +277,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXR-c3-SYn">
+                                <rect key="frame" x="331" y="86" width="24" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vhM-xz-jQE" secondAttribute="trailing" constant="20" id="0Df-pY-St9"/>
                             <constraint firstItem="vhM-xz-jQE" firstAttribute="top" secondItem="PRm-Td-wAJ" secondAttribute="bottom" constant="8" id="4Ji-YP-O87"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cXR-c3-SYn" secondAttribute="trailing" constant="20" id="Cac-P2-BbE"/>
                             <constraint firstItem="9bR-PO-Lxr" firstAttribute="top" secondItem="vhM-xz-jQE" secondAttribute="bottom" constant="270" id="EGa-sS-78Y"/>
                             <constraint firstAttribute="leadingMargin" secondItem="PRm-Td-wAJ" secondAttribute="leading" id="EfW-3h-0a9"/>
                             <constraint firstItem="gBw-Ia-nzl" firstAttribute="top" secondItem="PRm-Td-wAJ" secondAttribute="top" id="PuJ-m9-c1h"/>
@@ -291,9 +298,11 @@
                             <constraint firstAttribute="leadingMargin" secondItem="PRm-Td-wAJ" secondAttribute="leading" constant="200" id="gV1-4i-j5w"/>
                             <constraint firstItem="PRm-Td-wAJ" firstAttribute="top" secondItem="MS8-uk-iWZ" secondAttribute="bottom" constant="20" id="gZW-Sc-K3S"/>
                             <constraint firstItem="vhM-xz-jQE" firstAttribute="top" secondItem="PRm-Td-wAJ" secondAttribute="bottom" constant="-4" id="hGk-Xx-LL5"/>
+                            <constraint firstItem="cXR-c3-SYn" firstAttribute="trailing" secondItem="vhM-xz-jQE" secondAttribute="trailing" id="iTi-nG-yyW"/>
                             <constraint firstItem="Ibr-7f-FFu" firstAttribute="top" secondItem="gBw-Ia-nzl" secondAttribute="bottom" constant="2" id="shV-fd-OQz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vhM-xz-jQE" secondAttribute="trailing" id="w5Q-au-WoV"/>
                             <constraint firstItem="PRm-Td-wAJ" firstAttribute="leading" secondItem="L2m-sV-ufL" secondAttribute="leading" constant="20" id="wTd-ZN-ue1"/>
+                            <constraint firstItem="cXR-c3-SYn" firstAttribute="centerY" secondItem="gBw-Ia-nzl" secondAttribute="centerY" id="wmL-8y-eNh"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -301,6 +310,7 @@
                                 <exclude reference="gV1-4i-j5w"/>
                                 <exclude reference="hGk-Xx-LL5"/>
                                 <exclude reference="w5Q-au-WoV"/>
+                                <exclude reference="Cac-P2-BbE"/>
                             </mask>
                         </variation>
                     </view>
@@ -318,6 +328,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="charactersLeftLabel" destination="cXR-c3-SYn" id="Vg5-ns-v01"/>
                         <outlet property="nameLabel" destination="gBw-Ia-nzl" id="u7L-K0-5kO"/>
                         <outlet property="profileImageView" destination="PRm-Td-wAJ" id="scQ-Ld-9mm"/>
                         <outlet property="screennameLabel" destination="Ibr-7f-FFu" id="N6W-gs-dtA"/>

@@ -100,8 +100,5 @@ extension TweetsViewController: TweetCellDelegate {
 
     func tweetCellDidTapReply(tweetCell: TweetCell) {
         self.performSegueWithIdentifier("ComposeSegue", sender: tweetCell)
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewControllerWithIdentifier("ComposeViewController") as! ComposeViewController
-//        self.presentViewController(vc, animated: true, completion: nil)
     }
 }

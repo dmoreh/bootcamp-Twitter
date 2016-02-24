@@ -17,9 +17,16 @@ class ComposeViewController: UIViewController {
     }
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
-    @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var tweetTextView: UITextView! {
+        didSet {
+            tweetTextView.delegate = self
+            tweetTextView.text = ""
+        }
+    }
+    @IBOutlet weak var charactersLeftLabel: UILabel!
 
     var replyToTweet: Tweet?
+    static let kMaxTweetLength = 140
 
     @IBAction func didTapCancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -34,7 +41,7 @@ class ComposeViewController: UIViewController {
                 print(error.localizedDescription)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +54,6 @@ class ComposeViewController: UIViewController {
                 self.profileImageView.setImageWithURL(profileImageUrl)
             }
         }
-        tweetTextView.text = ""
         if let screenname = self.replyToTweet?.user?.screenname {
             tweetTextView.text = "@\(screenname) "
         }
@@ -56,5 +62,16 @@ class ComposeViewController: UIViewController {
 
     override func viewWillDisappear(animated: Bool) {
         tweetTextView.resignFirstResponder()
+    }
+}
+
+extension ComposeViewController: UITextViewDelegate {
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
+        return newText.characters.count <= ComposeViewController.kMaxTweetLength
+    }
+
+    func textViewDidChange(textView: UITextView) {
+        self.charactersLeftLabel.text = String(ComposeViewController.kMaxTweetLength - textView.text.characters.count)
     }
 }
