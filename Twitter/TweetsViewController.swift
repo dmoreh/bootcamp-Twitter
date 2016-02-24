@@ -87,17 +87,19 @@ extension TweetsViewController: UITableViewDelegate {
 
 extension TweetsViewController: TweetCellDelegate {
     func tweetCellDidTapFavorite(tweetCell: TweetCell) {
-        TwitterClient.sharedClient.favorite(tweetCell.tweet,
+        TwitterClient.sharedClient.toggleFavorite(tweetCell.tweet,
             success: nil) { (error: NSError) -> Void in
                 print(error.localizedDescription)
         }
     }
 
     func tweetCellDidTapRetweet(tweetCell: TweetCell) {
-        TwitterClient.sharedClient.retweet(tweetCell.tweet,
-            success: nil) { (error: NSError) -> Void in
+        TwitterClient.sharedClient.toggleRetweet(tweetCell.tweet,
+            success: nil,
+            failure: { (error: NSError) -> Void in
                 print(error.localizedDescription)
-        }
+            }
+        )
     }
 
     func tweetCellDidTapReply(tweetCell: TweetCell) {
@@ -117,9 +119,21 @@ extension TweetsViewController: TwitterClientDelegate {
         self.tweetsTableView.reloadData()
     }
 
+    func twitterClient(twitterClient: TwitterClient, didUnretweetTweet tweet: Tweet) {
+        tweet.retweetCount -= 1
+        tweet.retweeted = false
+        self.tweetsTableView.reloadData()
+    }
+
     func twitterClient(twitterClient: TwitterClient, didFavoriteTweet tweet: Tweet) {
         tweet.favoritesCount += 1
         tweet.favorited = true
+        self.tweetsTableView.reloadData()
+    }
+
+    func twitterClient(twitterClient: TwitterClient, didUnfavoriteTweet tweet: Tweet) {
+        tweet.favoritesCount -= 1
+        tweet.favorited = false
         self.tweetsTableView.reloadData()
     }
 }

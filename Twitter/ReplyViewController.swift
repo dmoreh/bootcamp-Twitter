@@ -30,21 +30,25 @@ class ReplyViewController: UIViewController {
     var tweet: Tweet!
 
     @IBAction func didTapRetweet(sender: AnyObject) {
-        TwitterClient.sharedClient.retweet(self.tweet,
+        TwitterClient.sharedClient.toggleRetweet(self.tweet,
             success: { () -> Void in
                 self.refreshView()
-            }) { (error: NSError) -> Void in
+            },
+            failure: { (error: NSError) -> Void in
                 print(error.localizedDescription)
-        }
+            }
+        )
     }
 
     @IBAction func didTapFavorite(sender: AnyObject) {
-        TwitterClient.sharedClient.favorite(self.tweet,
+        TwitterClient.sharedClient.toggleFavorite(self.tweet,
             success: { () -> Void in
                 self.refreshView()
-            }) { (error: NSError) -> Void in
+            },
+            failure: { (error: NSError) -> Void in
                 print(error.localizedDescription)
-        }
+            }
+        )
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

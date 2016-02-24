@@ -11,7 +11,9 @@ import BDBOAuth1Manager
 @objc protocol TwitterClientDelegate {
     optional func twitterClient(twitterClient: TwitterClient, didPostTweet tweet: Tweet)
     optional func twitterClient(twitterClient: TwitterClient, didFavoriteTweet tweet: Tweet)
+    optional func twitterClient(twitterClient: TwitterClient, didUnfavoriteTweet tweet: Tweet)
     optional func twitterClient(twitterClient: TwitterClient, didRetweetTweet tweet: Tweet)
+    optional func twitterClient(twitterClient: TwitterClient, didUnretweetTweet tweet: Tweet)
 }
 
 class TwitterClient: BDBOAuth1SessionManager {
@@ -74,6 +76,14 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    func toggleRetweet(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
+        if tweet.retweeted {
+            self.unretweet(tweet, success: success, failure: failure)
+        } else {
+            self.retweet(tweet, success: success, failure: failure)
+        }
+    }
+
     func retweet(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
             self.delegate?.twitterClient?(self, didRetweetTweet: tweet)
@@ -92,6 +102,75 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    func unretweet(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
+        guard !TwitterClient.shouldMockPosts else {
+            self.delegate?.twitterClient?(self, didUnretweetTweet: tweet)
+            success?()
+            return
+        }
+
+        guard tweet.retweeted else {
+            let error = NSError(
+                domain: "TwitterClient",
+                code: 0,
+                userInfo: ["localizedDescription": "Could not unretweet a tweet that wasn't retweeted."])
+            failure?(error)
+            return
+        }
+
+        var originalTweetId = tweet.id
+        if let retweetedStatus = tweet.retweetedStatus {
+            originalTweetId = retweetedStatus["id_str"] as! Int
+        }
+
+        self.getFullTweet(originalTweetId,
+            success: { (fullTweet: Tweet) -> Void in
+                guard let retweetId = fullTweet.retweetId else { return }
+
+                self.deleteTweet(retweetId, success: { () -> Void in
+                    self.delegate?.twitterClient?(self, didUnretweetTweet: tweet)
+                    success?()
+                    }, failure: { (error: NSError) -> Void in
+                        failure?(error)
+                })
+
+            }) { (error: NSError) -> Void in
+                failure?(error)
+        }
+    }
+
+    private func getFullTweet(tweetId: Int, success: (Tweet) -> Void, failure: FailureCallback?) {
+        GET("1.1/statuses/show/\(tweetId).json",
+            parameters: ["include_my_retweet": true],
+            progress: nil,
+            success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                let responseDictionary = response as! NSDictionary
+                let tweet = Tweet(dictionary: responseDictionary)
+                success(tweet)
+            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+                failure?(error)
+        }
+    }
+
+    private func deleteTweet(tweetId: Int, success: EmptySuccessCallback?, failure: FailureCallback?) {
+        POST("1.1/statuses/destroy/\(tweetId).json",
+            parameters: nil,
+            progress: nil,
+            success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                success?()
+            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+                failure?(error)
+        }
+    }
+
+    func toggleFavorite(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
+        if tweet.favorited {
+            self.unfavorite(tweet, success: success, failure: failure)
+        } else {
+            self.favorite(tweet, success: success, failure: failure)
+        }
+    }
+
     func favorite(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
             self.delegate?.twitterClient?(self, didFavoriteTweet: tweet)
@@ -104,6 +183,24 @@ class TwitterClient: BDBOAuth1SessionManager {
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 self.delegate?.twitterClient?(self, didFavoriteTweet: tweet)
+                success?()
+            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+                failure?(error)
+        }
+    }
+
+    func unfavorite(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
+        guard !TwitterClient.shouldMockPosts else {
+            self.delegate?.twitterClient?(self, didUnfavoriteTweet: tweet)
+            success?()
+            return
+        }
+
+        POST("1.1/favorites/destroy.json",
+            parameters: ["id": tweet.id],
+            progress: nil,
+            success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                self.delegate?.twitterClient?(self, didUnfavoriteTweet: tweet)
                 success?()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure?(error)

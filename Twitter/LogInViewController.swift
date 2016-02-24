@@ -21,5 +21,4 @@ class LogInViewController: UIViewController {
             }
         )
     }
-
 }
