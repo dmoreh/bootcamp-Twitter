@@ -183,9 +183,9 @@ extension TwitterClient {
     static func fakeNewTweet(text: String) -> Tweet {
         let fakeTweetDictionary = [
             "created_at": "Wed Feb 24 00:47:31 +0000 2016",
-            "favorite_count": 15,
+            "favorites_count": 0,
             "favorited": 0,
-            "retweet_count": 8,
+            "retweet_count": 0,
             "retweeted": 0,
             "text": text,
         ]

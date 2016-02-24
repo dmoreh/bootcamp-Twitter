@@ -214,7 +214,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="favoriteButton" destination="AVw-gD-IV1" id="1Za-CI-ReP"/>
-                                            <outlet property="favoriteCountLabel" destination="YhZ-WR-THk" id="EMy-l0-sol"/>
+                                            <outlet property="favoritesCountLabel" destination="YhZ-WR-THk" id="y82-G7-WbA"/>
                                             <outlet property="nameLabel" destination="Hyl-UP-Pmx" id="QUi-is-yF0"/>
                                             <outlet property="profileImageView" destination="t68-hs-EGy" id="Sac-aI-I5y"/>
                                             <outlet property="replyButton" destination="q6f-1T-wIz" id="P2d-rC-zUH"/>
@@ -558,7 +558,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="favoriteButton" destination="HfC-ws-IIc" id="dkE-YU-JZZ"/>
-                        <outlet property="favoriteCountLabel" destination="OM5-ru-eVq" id="vaZ-kp-oRW"/>
+                        <outlet property="favoritesCountLabel" destination="OM5-ru-eVq" id="RCD-4M-bqc"/>
                         <outlet property="nameLabel" destination="Iyv-E6-4D5" id="tii-PN-zbg"/>
                         <outlet property="profileImageView" destination="srN-kv-hrQ" id="7CI-nO-AXo"/>
                         <outlet property="retweetButton" destination="27u-ed-nK6" id="ZRS-tF-h2v"/>

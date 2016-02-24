@@ -16,7 +16,7 @@ class ReplyViewController: UIViewController {
     @IBOutlet weak var tweetedAtLabel: UILabel!
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var retweetCountLabel: UILabel!
-    @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var favoritesCountLabel: UILabel!
     @IBOutlet weak var retweetButton: RetweetButton!
     @IBOutlet weak var favoriteButton: FavoriteButton!
 
@@ -63,7 +63,7 @@ class ReplyViewController: UIViewController {
     private func refreshView() {
         self.tweetTextView.text = self.tweet.text
         self.retweetCountLabel.text = String(self.tweet.retweetCount)
-        self.favoriteCountLabel.text = String(self.tweet.favoritesCount)
+        self.favoritesCountLabel.text = String(self.tweet.favoritesCount)
         self.retweetButton.retweeted = self.tweet.retweeted
         self.favoriteButton.favorited = self.tweet.favorited
         if let user = self.tweet.user {
