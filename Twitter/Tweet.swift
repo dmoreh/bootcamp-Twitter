@@ -11,10 +11,10 @@ import UIKit
 class Tweet: NSObject {
     var text: String?
     var timestamp: NSDate?
-    var retweetCount = 0
-    var favoritesCount = 0
-    var favorited = false
-    var retweeted = false
+    private(set) var retweetCount = 0
+    private(set) var favoritesCount = 0
+    private(set) var favorited = false
+    private(set) var retweeted = false
     var retweetedStatus: NSDictionary?
     var retweetId: Int? {
         get {
@@ -64,5 +64,25 @@ class Tweet: NSObject {
         }
 
         return tweets
+    }
+
+    func markRetweeted() {
+        self.retweeted = true
+        self.retweetCount += 1
+    }
+
+    func markUnretweeted() {
+        self.retweeted = false
+        self.retweetCount -= 1
+    }
+
+    func markFavorited() {
+        self.favorited = true
+        self.favoritesCount += 1
+    }
+
+    func markUnfavorited() {
+        self.favorited = false
+        self.favoritesCount -= 1
     }
 }

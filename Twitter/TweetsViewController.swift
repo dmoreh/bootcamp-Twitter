@@ -114,26 +114,22 @@ extension TweetsViewController: TwitterClientDelegate {
     }
 
     func twitterClient(twitterClient: TwitterClient, didRetweetTweet tweet: Tweet) {
-        tweet.retweetCount += 1
-        tweet.retweeted = true
+        tweet.markRetweeted()
         self.tweetsTableView.reloadData()
     }
 
     func twitterClient(twitterClient: TwitterClient, didUnretweetTweet tweet: Tweet) {
-        tweet.retweetCount -= 1
-        tweet.retweeted = false
+        tweet.markUnretweeted()
         self.tweetsTableView.reloadData()
     }
 
     func twitterClient(twitterClient: TwitterClient, didFavoriteTweet tweet: Tweet) {
-        tweet.favoritesCount += 1
-        tweet.favorited = true
+        tweet.markFavorited()
         self.tweetsTableView.reloadData()
     }
 
     func twitterClient(twitterClient: TwitterClient, didUnfavoriteTweet tweet: Tweet) {
-        tweet.favoritesCount -= 1
-        tweet.favorited = false
+        tweet.markUnfavorited()
         self.tweetsTableView.reloadData()
     }
 }
