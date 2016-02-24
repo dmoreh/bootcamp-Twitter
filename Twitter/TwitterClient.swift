@@ -38,9 +38,14 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     var delegate: TwitterClientDelegate?
 
-    func homeTimeline(success: (([Tweet]) -> Void)?, failure: FailureCallback?) {
+    func homeTimeline(beforeTweet lastTweet: Tweet? = nil, success: (([Tweet]) -> Void)?, failure: FailureCallback?) {
+
+        var parameters: NSDictionary? = nil
+        if let lastTweet = lastTweet {
+            parameters = ["max_id": lastTweet.id - 1]
+        }
         GET("1.1/statuses/home_timeline.json",
-            parameters: nil,
+            parameters: parameters,
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 let tweets = Tweet.tweetsWithArray(response as! Array)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVPullToRefresh
 
 class TweetsViewController: UIViewController {
 
@@ -31,11 +32,15 @@ class TweetsViewController: UIViewController {
         self.tweetsTableView.rowHeight = UITableViewAutomaticDimension
         self.tweetsTableView.estimatedRowHeight = 120
 
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "fetchTweets:", forControlEvents: .ValueChanged)
-        self.tweetsTableView.addSubview(refreshControl)
+        self.tweetsTableView.addPullToRefreshWithActionHandler { () -> Void in
+            self.fetchTweets()
+        }
 
-        self.fetchTweets(nil)
+        self.tweetsTableView.addInfiniteScrollingWithActionHandler { () -> Void in
+            self.fetchMoreTweets(beforeTweet: self.tweets.last)
+        }
+
+        self.fetchTweets()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -53,14 +58,27 @@ class TweetsViewController: UIViewController {
         }
     }
 
-    func fetchTweets(refreshControl: UIRefreshControl?) {
+    func fetchTweets() {
         TwitterClient.sharedClient.homeTimeline(
-            { (tweets: [Tweet]) -> Void in
+            success: { (tweets: [Tweet]) -> Void in
                 self.tweets = tweets
-                refreshControl?.endRefreshing()
+                self.tweetsTableView.pullToRefreshView.stopAnimating()
             }, failure: { (error: NSError) -> Void in
                 print(error.localizedDescription)
-                refreshControl?.endRefreshing()
+                self.tweetsTableView.pullToRefreshView.stopAnimating()
+            }
+        )
+    }
+
+    func fetchMoreTweets(beforeTweet lastTweet: Tweet? = nil) {
+        TwitterClient.sharedClient.homeTimeline(
+            beforeTweet: lastTweet,
+            success: { (tweets: [Tweet]) -> Void in
+                self.tweets.appendContentsOf(tweets)
+                self.tweetsTableView.infiniteScrollingView.stopAnimating()
+            }, failure: { (error: NSError) -> Void in
+                print(error.localizedDescription)
+                self.tweetsTableView.infiniteScrollingView.stopAnimating()
             }
         )
     }

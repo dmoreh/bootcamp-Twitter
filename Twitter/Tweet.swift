@@ -67,21 +67,25 @@ class Tweet: NSObject {
     }
 
     func markRetweeted() {
+        guard !self.retweeted else { return }
         self.retweeted = true
         self.retweetCount += 1
     }
 
     func markUnretweeted() {
+        guard self.retweeted else { return }
         self.retweeted = false
         self.retweetCount -= 1
     }
 
     func markFavorited() {
+        guard !self.favorited else { return }
         self.favorited = true
         self.favoritesCount += 1
     }
 
     func markUnfavorited() {
+        guard self.favorited else { return }
         self.favorited = false
         self.favoritesCount -= 1
     }
