@@ -24,6 +24,8 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "tweeted:", name: TwitterClient.kTweetedNotification, object: nil)
+
         self.tweetsTableView.delegate = self
         self.tweetsTableView.dataSource = self
         self.tweetsTableView.rowHeight = UITableViewAutomaticDimension
@@ -61,6 +63,12 @@ class TweetsViewController: UIViewController {
                 refreshControl?.endRefreshing()
             }
         )
+    }
+
+    func tweeted(notification: NSNotification) {
+        let tweet = notification.object as! Tweet
+        self.tweets.insert(tweet, atIndex: 0)
+        self.tweetsTableView.reloadData()
     }
 }
 

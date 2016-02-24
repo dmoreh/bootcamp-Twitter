@@ -13,11 +13,13 @@ class TwitterClient: BDBOAuth1SessionManager {
     typealias EmptySuccessCallback = () -> Void
     typealias FailureCallback = (NSError) -> Void
 
-    static let shouldMockPosts = true
+    static let kTweetedNotification = "Tweeted"
 
-    static let twitterBaseURL = NSURL(string: "https://api.twitter.com")
-    static let twitterConsumerKey = "eILdArI1Y6zCs4yVydfUyaJJu"
-    static let twitterConsumerSecret = "qRTLDsHAeCK09sjlWcvNcDZC1YE0WNN2jVqIxdtPc9bW4Vtgso"
+    private static let shouldMockPosts = true
+
+    private static let twitterBaseURL = NSURL(string: "https://api.twitter.com")
+    private static let twitterConsumerKey = "eILdArI1Y6zCs4yVydfUyaJJu"
+    private static let twitterConsumerSecret = "qRTLDsHAeCK09sjlWcvNcDZC1YE0WNN2jVqIxdtPc9bW4Vtgso"
 
     static let sharedClient = TwitterClient(
         baseURL: twitterBaseURL,
@@ -34,6 +36,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 let tweets = Tweet.tweetsWithArray(response as! Array)
+                print(response![0])
                 success?(tweets)
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure?(error)
@@ -42,6 +45,9 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     func tweet(text: String, inReplyToTweet tweet: Tweet?, success: EmptySuccessCallback, failure: FailureCallback) {
         guard !TwitterClient.shouldMockPosts else {
+            let tweet = TwitterClient.fakeNewTweet(text)
+            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotification, object: tweet)
+
             success()
             return
         }
@@ -55,6 +61,9 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: parameters,
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                let responseDictionary = response as! NSDictionary
+                let tweet = Tweet(dictionary: responseDictionary)
+                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotification, object: tweet)
                 success()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure(error)
@@ -159,5 +168,25 @@ class TwitterClient: BDBOAuth1SessionManager {
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure(error)
         }
+    }
+}
+
+extension TwitterClient {
+    static func fakeNewTweet(text: String) -> Tweet {
+        let fakeTweetDictionary = [
+            "created_at": "Wed Feb 24 00:47:31 +0000 2016",
+            "favorite_count": 15,
+            "favorited": 0,
+            "retweet_count": 8,
+            "retweeted": 0,
+            "text": text,
+        ]
+        
+        let tweet = Tweet(dictionary: fakeTweetDictionary)
+        tweet.timestamp = NSDate()
+        tweet.user = User.currentUser
+
+        return tweet
+
     }
 }
