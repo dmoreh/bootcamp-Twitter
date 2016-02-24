@@ -8,14 +8,16 @@
 
 import BDBOAuth1Manager
 
+@objc protocol TwitterClientDelegate {
+    optional func twitterClient(twitterClient: TwitterClient, didPostTweet tweet: Tweet)
+    optional func twitterClient(twitterClient: TwitterClient, didFavoriteTweet tweet: Tweet)
+    optional func twitterClient(twitterClient: TwitterClient, didRetweetTweet tweet: Tweet)
+}
+
 class TwitterClient: BDBOAuth1SessionManager {
 
     typealias EmptySuccessCallback = () -> Void
     typealias FailureCallback = (NSError) -> Void
-
-    static let kTweetedNotificationName = "Tweeted"
-    static let kRetweetedNotificationName = "Retweeted"
-    static let kFavoritedNotificationName = "Favorited"
 
     private static let shouldMockPosts = true
 
@@ -32,6 +34,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     private var loginSuccess: EmptySuccessCallback?
     private var loginFailure: FailureCallback?
 
+    var delegate: TwitterClientDelegate?
+
     func homeTimeline(success: (([Tweet]) -> Void)?, failure: FailureCallback?) {
         GET("1.1/statuses/home_timeline.json",
             parameters: nil,
@@ -47,8 +51,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     func tweet(text: String, inReplyToTweet tweet: Tweet?, success: EmptySuccessCallback, failure: FailureCallback) {
         guard !TwitterClient.shouldMockPosts else {
             let tweet = TwitterClient.fakeNewTweet(text)
-            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotificationName, object: tweet)
-
+            self.delegate?.twitterClient?(self, didPostTweet: tweet)
             success()
             return
         }
@@ -64,7 +67,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 let responseDictionary = response as! NSDictionary
                 let tweet = Tweet(dictionary: responseDictionary)
-                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotificationName, object: tweet)
+                self.delegate?.twitterClient?(self, didPostTweet: tweet)
                 success()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure(error)
@@ -73,7 +76,7 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     func retweet(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
-            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kRetweetedNotificationName, object: tweet)
+            self.delegate?.twitterClient?(self, didRetweetTweet: tweet)
             success?()
             return
         }
@@ -82,7 +85,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: nil,
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kRetweetedNotificationName, object: tweet)
+                self.delegate?.twitterClient?(self, didRetweetTweet: tweet)
                 success?()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure?(error)
@@ -91,7 +94,7 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     func favorite(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
-            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kFavoritedNotificationName, object: tweet)
+            self.delegate?.twitterClient?(self, didFavoriteTweet: tweet)
             success?()
             return
         }
@@ -100,7 +103,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: ["id": tweet.id],
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kFavoritedNotificationName, object: tweet)
+                self.delegate?.twitterClient?(self, didFavoriteTweet: tweet)
                 success?()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure?(error)

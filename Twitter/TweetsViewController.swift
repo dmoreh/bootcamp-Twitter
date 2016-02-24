@@ -24,9 +24,7 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "tweeted:", name: TwitterClient.kTweetedNotificationName, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "favorited:", name: TwitterClient.kFavoritedNotificationName, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "retweeted:", name: TwitterClient.kRetweetedNotificationName, object: nil)
+        TwitterClient.sharedClient.delegate = self
 
         self.tweetsTableView.delegate = self
         self.tweetsTableView.dataSource = self
@@ -38,10 +36,6 @@ class TweetsViewController: UIViewController {
         self.tweetsTableView.addSubview(refreshControl)
 
         self.fetchTweets(nil)
-    }
-
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -111,24 +105,19 @@ extension TweetsViewController: TweetCellDelegate {
     }
 }
 
-// Notification observing
-extension TweetsViewController {
-
-    func tweeted(notification: NSNotification) {
-        let tweet = notification.object as! Tweet
+extension TweetsViewController: TwitterClientDelegate {
+    func twitterClient(twitterClient: TwitterClient, didPostTweet tweet: Tweet) {
         self.tweets.insert(tweet, atIndex: 0)
         self.tweetsTableView.reloadData()
     }
 
-    func retweeted(notification: NSNotification) {
-        let tweet = notification.object as! Tweet
+    func twitterClient(twitterClient: TwitterClient, didRetweetTweet tweet: Tweet) {
         tweet.retweetCount += 1
         tweet.retweeted = true
         self.tweetsTableView.reloadData()
     }
 
-    func favorited(notification: NSNotification) {
-        let tweet = notification.object as! Tweet
+    func twitterClient(twitterClient: TwitterClient, didFavoriteTweet tweet: Tweet) {
         tweet.favoritesCount += 1
         tweet.favorited = true
         self.tweetsTableView.reloadData()
