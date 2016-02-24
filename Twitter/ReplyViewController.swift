@@ -17,8 +17,8 @@ class ReplyViewController: UIViewController {
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
-    @IBOutlet weak var retweetButton: UIButton!
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var retweetButton: RetweetButton!
+    @IBOutlet weak var favoriteButton: FavoriteButton!
 
     static private let _dateFormatter = NSDateFormatter()
     static private var dateFormatter: NSDateFormatter {
@@ -32,7 +32,7 @@ class ReplyViewController: UIViewController {
     @IBAction func didTapRetweet(sender: AnyObject) {
         TwitterClient.sharedClient.retweet(self.tweet,
             success: { () -> Void in
-                self.retweetButton.setBackgroundImage(UIImage(named: "retweet-action-on"), forState: .Normal)
+                self.refreshView()
             }) { (error: NSError) -> Void in
                 print(error.localizedDescription)
         }
@@ -41,7 +41,7 @@ class ReplyViewController: UIViewController {
     @IBAction func didTapFavorite(sender: AnyObject) {
         TwitterClient.sharedClient.favorite(self.tweet,
             success: { () -> Void in
-                self.favoriteButton.setBackgroundImage(UIImage(named: "like-action-on"), forState: .Normal)
+                self.refreshView()
             }) { (error: NSError) -> Void in
                 print(error.localizedDescription)
         }
@@ -57,21 +57,24 @@ class ReplyViewController: UIViewController {
         super.viewDidLoad()
 
         self.profileImageView.layer.cornerRadius = 5
+        self.refreshView()
+    }
 
-        self.tweetTextView.text = tweet.text
-        self.retweetCountLabel.text = String(tweet.retweetCount)
-        self.favoriteCountLabel.text = String(tweet.favoritesCount)
-        if let user = tweet.user {
+    private func refreshView() {
+        self.tweetTextView.text = self.tweet.text
+        self.retweetCountLabel.text = String(self.tweet.retweetCount)
+        self.favoriteCountLabel.text = String(self.tweet.favoritesCount)
+        self.retweetButton.retweeted = self.tweet.retweeted
+        self.favoriteButton.favorited = self.tweet.favorited
+        if let user = self.tweet.user {
             self.nameLabel.text = user.name
             self.screennameLabel.text = "@\(user.screenname!)"
             if let profileImageUrl = user.profileImageUrl {
                 self.profileImageView.setImageWithURL(profileImageUrl)
             }
         }
-        if let timestamp = tweet.timestamp {
+        if let timestamp = self.tweet.timestamp {
             self.tweetedAtLabel.text = ReplyViewController.dateFormatter.stringFromDate(timestamp)
         }
-
-        // Do any additional setup after loading the view.
     }
 }

@@ -24,7 +24,9 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "tweeted:", name: TwitterClient.kTweetedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "tweeted:", name: TwitterClient.kTweetedNotificationName, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "favorited:", name: TwitterClient.kFavoritedNotificationName, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "retweeted:", name: TwitterClient.kRetweetedNotificationName, object: nil)
 
         self.tweetsTableView.delegate = self
         self.tweetsTableView.dataSource = self
@@ -36,6 +38,10 @@ class TweetsViewController: UIViewController {
         self.tweetsTableView.addSubview(refreshControl)
 
         self.fetchTweets(nil)
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -63,12 +69,6 @@ class TweetsViewController: UIViewController {
                 refreshControl?.endRefreshing()
             }
         )
-    }
-
-    func tweeted(notification: NSNotification) {
-        let tweet = notification.object as! Tweet
-        self.tweets.insert(tweet, atIndex: 0)
-        self.tweetsTableView.reloadData()
     }
 }
 
@@ -108,5 +108,29 @@ extension TweetsViewController: TweetCellDelegate {
 
     func tweetCellDidTapReply(tweetCell: TweetCell) {
         self.performSegueWithIdentifier("ComposeSegue", sender: tweetCell)
+    }
+}
+
+// Notification observing
+extension TweetsViewController {
+
+    func tweeted(notification: NSNotification) {
+        let tweet = notification.object as! Tweet
+        self.tweets.insert(tweet, atIndex: 0)
+        self.tweetsTableView.reloadData()
+    }
+
+    func retweeted(notification: NSNotification) {
+        let tweet = notification.object as! Tweet
+        tweet.retweetCount += 1
+        tweet.retweeted = true
+        self.tweetsTableView.reloadData()
+    }
+
+    func favorited(notification: NSNotification) {
+        let tweet = notification.object as! Tweet
+        tweet.favoritesCount += 1
+        tweet.favorited = true
+        self.tweetsTableView.reloadData()
     }
 }

@@ -13,7 +13,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     typealias EmptySuccessCallback = () -> Void
     typealias FailureCallback = (NSError) -> Void
 
-    static let kTweetedNotification = "Tweeted"
+    static let kTweetedNotificationName = "Tweeted"
+    static let kRetweetedNotificationName = "Retweeted"
+    static let kFavoritedNotificationName = "Favorited"
 
     private static let shouldMockPosts = true
 
@@ -45,7 +47,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     func tweet(text: String, inReplyToTweet tweet: Tweet?, success: EmptySuccessCallback, failure: FailureCallback) {
         guard !TwitterClient.shouldMockPosts else {
             let tweet = TwitterClient.fakeNewTweet(text)
-            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotification, object: tweet)
+            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotificationName, object: tweet)
 
             success()
             return
@@ -62,7 +64,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 let responseDictionary = response as! NSDictionary
                 let tweet = Tweet(dictionary: responseDictionary)
-                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotification, object: tweet)
+                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kTweetedNotificationName, object: tweet)
                 success()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure(error)
@@ -71,6 +73,7 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     func retweet(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
+            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kRetweetedNotificationName, object: tweet)
             success?()
             return
         }
@@ -79,6 +82,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: nil,
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kRetweetedNotificationName, object: tweet)
                 success?()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure?(error)
@@ -87,6 +91,7 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     func favorite(tweet: Tweet, success: EmptySuccessCallback?, failure: FailureCallback?) {
         guard !TwitterClient.shouldMockPosts else {
+            NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kFavoritedNotificationName, object: tweet)
             success?()
             return
         }
@@ -95,6 +100,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: ["id": tweet.id],
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.kFavoritedNotificationName, object: tweet)
                 success?()
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure?(error)

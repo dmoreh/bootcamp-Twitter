@@ -24,6 +24,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var replyButton: ReplyButton!
     @IBOutlet weak var retweetButton: RetweetButton!
     @IBOutlet weak var favoriteButton: FavoriteButton!
+    @IBOutlet weak var retweetCountLabel: UILabel!
+    @IBOutlet weak var favoriteCountLabel: UILabel!
 
     weak var delegate: TweetCellDelegate?
 
@@ -40,6 +42,9 @@ class TweetCell: UITableViewCell {
             self.tweetTextLabel.text = tweet.text
             self.favoriteButton.favorited = tweet.favorited
             self.retweetButton.retweeted = tweet.retweeted
+            self.retweetCountLabel.text = String(tweet.retweetCount)
+            self.favoriteCountLabel
+                .text = String(tweet.favoritesCount)
             if let user = tweet.user {
                 self.nameLabel.text = user.name
                 self.screennameLabel.text = "@\(user.screenname!)"
@@ -59,17 +64,21 @@ class TweetCell: UITableViewCell {
         self.profileImageView.layer.cornerRadius = 5
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     @IBAction func didTapReply(sender: AnyObject) {
         delegate?.tweetCellDidTapReply?(self)
     }
 
     @IBAction func didTapRetweet(sender: AnyObject) {
-        self.retweetButton.setBackgroundImage(UIImage(named: "retweet-action-on"), forState: .Normal)
+        self.retweetButton.retweeted = true
         delegate?.tweetCellDidTapRetweet?(self)
     }
 
     @IBAction func didTapFavorite(sender: AnyObject) {
-        self.favoriteButton.setBackgroundImage(UIImage(named: "like-action-on"), forState: .Normal)
+        self.favoriteButton.favorited = true
         delegate?.tweetCellDidTapFavorite?(self)
     }
 }

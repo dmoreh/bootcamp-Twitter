@@ -106,7 +106,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOG-OS-sLO" userLabel="Retweet Button" customClass="RetweetButton" customModule="Twitter" customModuleProvider="target">
-                                                    <rect key="frame" x="131" y="88.5" width="26.5" height="25"/>
+                                                    <rect key="frame" x="145.5" y="88.5" width="26.5" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="tOG-OS-sLO" secondAttribute="height" multiplier="65:72" id="Puf-Nm-zEl"/>
                                                         <constraint firstAttribute="width" secondItem="tOG-OS-sLO" secondAttribute="height" multiplier="75:72" id="RUb-dO-xTx"/>
@@ -126,7 +126,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVw-gD-IV1" userLabel="Favorite Button" customClass="FavoriteButton" customModule="Twitter" customModuleProvider="target">
-                                                    <rect key="frame" x="193" y="88.5" width="18.5" height="25"/>
+                                                    <rect key="frame" x="222" y="88.5" width="18.5" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="AVw-gD-IV1" secondAttribute="height" multiplier="54:72" id="Y5s-QC-fIe"/>
                                                         <constraint firstAttribute="height" constant="30" id="c8q-6b-giU"/>
@@ -151,6 +151,18 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhZ-WR-THk">
+                                                    <rect key="frame" x="248" y="93" width="22" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqg-FA-Xnr">
+                                                    <rect key="frame" x="177.5" y="93" width="22" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="RRE-yH-Z0i" firstAttribute="baseline" secondItem="Hyl-UP-Pmx" secondAttribute="baseline" id="0G5-Cw-vx9"/>
@@ -161,7 +173,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="noX-7k-4Ai" secondAttribute="trailing" constant="12" id="HZt-fi-1nc"/>
                                                 <constraint firstItem="t68-hs-EGy" firstAttribute="leading" secondItem="Rpz-t1-3MT" secondAttribute="leading" constant="12" id="IrL-mG-og6"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="H4v-nU-KR4" secondAttribute="trailing" id="KbN-0B-b7Q"/>
-                                                <constraint firstItem="tOG-OS-sLO" firstAttribute="leading" secondItem="q6f-1T-wIz" secondAttribute="trailing" constant="36" id="LRf-L0-otu"/>
+                                                <constraint firstItem="tOG-OS-sLO" firstAttribute="leading" secondItem="q6f-1T-wIz" secondAttribute="trailing" constant="50" id="LRf-L0-otu"/>
                                                 <constraint firstItem="q6f-1T-wIz" firstAttribute="leading" secondItem="t68-hs-EGy" secondAttribute="trailing" constant="13" id="NMs-vr-rP8"/>
                                                 <constraint firstAttribute="topMargin" secondItem="t68-hs-EGy" secondAttribute="top" id="O2Z-5k-ESN"/>
                                                 <constraint firstItem="H4v-nU-KR4" firstAttribute="leading" secondItem="t68-hs-EGy" secondAttribute="trailing" constant="8" id="OJx-NV-Ze2"/>
@@ -171,16 +183,20 @@
                                                 <constraint firstItem="AVw-gD-IV1" firstAttribute="height" secondItem="tOG-OS-sLO" secondAttribute="height" id="RuS-JJ-6e3"/>
                                                 <constraint firstItem="tOG-OS-sLO" firstAttribute="height" secondItem="q6f-1T-wIz" secondAttribute="height" id="UUJ-xy-pel"/>
                                                 <constraint firstItem="Hyl-UP-Pmx" firstAttribute="leading" secondItem="t68-hs-EGy" secondAttribute="trailing" constant="8" id="UUh-AA-wWq"/>
+                                                <constraint firstItem="YhZ-WR-THk" firstAttribute="centerY" secondItem="AVw-gD-IV1" secondAttribute="centerY" id="Upd-6r-rAa"/>
                                                 <constraint firstItem="noX-7k-4Ai" firstAttribute="baseline" secondItem="RRE-yH-Z0i" secondAttribute="baseline" id="aXe-8P-3kp"/>
+                                                <constraint firstItem="YhZ-WR-THk" firstAttribute="leading" secondItem="AVw-gD-IV1" secondAttribute="trailing" constant="7.5" id="aXj-Dc-I4d"/>
                                                 <constraint firstItem="t68-hs-EGy" firstAttribute="top" secondItem="Rpz-t1-3MT" secondAttribute="top" constant="12" id="cYj-aY-Cil"/>
                                                 <constraint firstItem="RRE-yH-Z0i" firstAttribute="leading" secondItem="Hyl-UP-Pmx" secondAttribute="trailing" constant="4" id="d33-7j-fuP"/>
-                                                <constraint firstItem="AVw-gD-IV1" firstAttribute="leading" secondItem="tOG-OS-sLO" secondAttribute="trailing" constant="36" id="ecN-ta-v0r"/>
+                                                <constraint firstItem="AVw-gD-IV1" firstAttribute="leading" secondItem="tOG-OS-sLO" secondAttribute="trailing" constant="50" id="ecN-ta-v0r"/>
+                                                <constraint firstItem="pqg-FA-Xnr" firstAttribute="centerY" secondItem="tOG-OS-sLO" secondAttribute="centerY" id="gMa-ri-u3o"/>
                                                 <constraint firstItem="Hyl-UP-Pmx" firstAttribute="top" secondItem="t68-hs-EGy" secondAttribute="top" id="is3-Ay-sRR"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="noX-7k-4Ai" secondAttribute="trailing" id="jjN-Dd-NzX"/>
                                                 <constraint firstAttribute="topMargin" secondItem="Hyl-UP-Pmx" secondAttribute="top" id="jn8-SS-0Y7"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="t68-hs-EGy" secondAttribute="bottom" constant="8" id="lSR-q8-io5"/>
                                                 <constraint firstItem="q6f-1T-wIz" firstAttribute="top" secondItem="H4v-nU-KR4" secondAttribute="bottom" constant="8" id="oNN-W5-lEK"/>
                                                 <constraint firstItem="q6f-1T-wIz" firstAttribute="top" secondItem="H4v-nU-KR4" secondAttribute="bottom" constant="4" id="rym-88-ob9"/>
+                                                <constraint firstItem="pqg-FA-Xnr" firstAttribute="leading" secondItem="tOG-OS-sLO" secondAttribute="trailing" constant="5.5" id="w8L-9B-qNF"/>
                                                 <constraint firstItem="RRE-yH-Z0i" firstAttribute="centerY" secondItem="Hyl-UP-Pmx" secondAttribute="centerY" id="yZj-f3-MiQ"/>
                                             </constraints>
                                             <variation key="default">
@@ -198,10 +214,12 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="favoriteButton" destination="AVw-gD-IV1" id="1Za-CI-ReP"/>
+                                            <outlet property="favoriteCountLabel" destination="YhZ-WR-THk" id="EMy-l0-sol"/>
                                             <outlet property="nameLabel" destination="Hyl-UP-Pmx" id="QUi-is-yF0"/>
                                             <outlet property="profileImageView" destination="t68-hs-EGy" id="Sac-aI-I5y"/>
                                             <outlet property="replyButton" destination="q6f-1T-wIz" id="P2d-rC-zUH"/>
                                             <outlet property="retweetButton" destination="tOG-OS-sLO" id="91I-W3-c4M"/>
+                                            <outlet property="retweetCountLabel" destination="pqg-FA-Xnr" id="TmA-fR-1IF"/>
                                             <outlet property="screennameLabel" destination="RRE-yH-Z0i" id="VfM-uO-EoQ"/>
                                             <outlet property="tweetTextLabel" destination="H4v-nU-KR4" id="FYW-OE-F4i"/>
                                             <outlet property="tweetedAtLabel" destination="noX-7k-4Ai" id="zM4-Ib-XO6"/>
@@ -417,7 +435,7 @@
                                     <segue destination="exq-mn-SdT" kind="presentation" identifier="ReplySegue" id="Klz-sd-Mjo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HfC-ws-IIc" userLabel="Favorite Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HfC-ws-IIc" userLabel="Favorite Button" customClass="FavoriteButton" customModule="Twitter" customModuleProvider="target">
                                 <rect key="frame" x="162" y="378" width="18.5" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HfC-ws-IIc" secondAttribute="height" multiplier="54:72" id="9gz-Ny-mUw"/>
