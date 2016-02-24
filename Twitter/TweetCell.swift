@@ -21,9 +21,9 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var tweetedAtLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
-    @IBOutlet weak var replyButton: UIButton!
-    @IBOutlet weak var retweetButton: UIButton!
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var replyButton: ReplyButton!
+    @IBOutlet weak var retweetButton: RetweetButton!
+    @IBOutlet weak var favoriteButton: FavoriteButton!
 
     weak var delegate: TweetCellDelegate?
 
@@ -38,6 +38,8 @@ class TweetCell: UITableViewCell {
             guard let tweet = tweet else { return }
 
             self.tweetTextLabel.text = tweet.text
+            self.favoriteButton.favorited = tweet.favorited
+            self.retweetButton.retweeted = tweet.retweeted
             if let user = tweet.user {
                 self.nameLabel.text = user.name
                 self.screennameLabel.text = "@\(user.screenname!)"

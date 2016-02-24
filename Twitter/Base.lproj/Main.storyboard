@@ -88,14 +88,14 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6f-1T-wIz" userLabel="Reply Button">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6f-1T-wIz" userLabel="Reply Button" customClass="ReplyButton" customModule="Twitter" customModuleProvider="target">
                                                     <rect key="frame" x="73" y="88.5" width="22.5" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="UVE-pR-0Aa"/>
                                                         <constraint firstAttribute="height" constant="25" id="XP7-Ac-tHM"/>
                                                         <constraint firstAttribute="width" secondItem="q6f-1T-wIz" secondAttribute="height" multiplier="65:72" id="Y8n-OV-fdo"/>
                                                     </constraints>
-                                                    <state key="normal" backgroundImage="reply-action_0"/>
+                                                    <state key="normal" backgroundImage="reply-action"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="UVE-pR-0Aa"/>
@@ -105,7 +105,7 @@
                                                         <action selector="didTapReply:" destination="kMh-K5-pfJ" eventType="touchUpInside" id="cp6-TD-Kw9"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOG-OS-sLO" userLabel="Retweet Button">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOG-OS-sLO" userLabel="Retweet Button" customClass="RetweetButton" customModule="Twitter" customModuleProvider="target">
                                                     <rect key="frame" x="131" y="88.5" width="26.5" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="tOG-OS-sLO" secondAttribute="height" multiplier="65:72" id="Puf-Nm-zEl"/>
@@ -125,7 +125,7 @@
                                                         <action selector="didTapRetweet:" destination="kMh-K5-pfJ" eventType="touchUpInside" id="vX7-BB-o87"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVw-gD-IV1" userLabel="Favorite Button">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVw-gD-IV1" userLabel="Favorite Button" customClass="FavoriteButton" customModule="Twitter" customModuleProvider="target">
                                                     <rect key="frame" x="193" y="88.5" width="18.5" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="AVw-gD-IV1" secondAttribute="height" multiplier="54:72" id="Y5s-QC-fIe"/>
@@ -407,12 +407,12 @@
                                     <constraint firstAttribute="height" constant="1" id="bXy-81-Xvs"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMy-ou-m7J" userLabel="Reply Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMy-ou-m7J" userLabel="Reply Button" customClass="ReplyButton" customModule="Twitter" customModuleProvider="target">
                                 <rect key="frame" x="24" y="378" width="22.5" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="kja-b7-98J"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="reply-action_0"/>
+                                <state key="normal" backgroundImage="reply-action"/>
                                 <connections>
                                     <segue destination="exq-mn-SdT" kind="presentation" identifier="ReplySegue" id="Klz-sd-Mjo"/>
                                 </connections>
@@ -457,7 +457,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27u-ed-nK6" userLabel="Retweet Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27u-ed-nK6" userLabel="Retweet Button" customClass="RetweetButton" customModule="Twitter" customModuleProvider="target">
                                 <rect key="frame" x="91" y="378" width="26.5" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="27u-ed-nK6" secondAttribute="height" multiplier="75:72" id="Zmq-G3-8RN"/>
@@ -594,10 +594,10 @@
     </scenes>
     <resources>
         <image name="like-action" width="54" height="72"/>
-        <image name="reply-action_0" width="65" height="72"/>
+        <image name="reply-action" width="65" height="72"/>
         <image name="retweet-action" width="75" height="72"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9of-cZ-CDw"/>
+        <segue reference="Klz-sd-Mjo"/>
     </inferredMetricsTieBreakers>
 </document>

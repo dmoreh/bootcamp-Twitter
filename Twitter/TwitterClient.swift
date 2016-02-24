@@ -36,7 +36,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 let tweets = Tweet.tweetsWithArray(response as! Array)
-                print(response![0])
                 success?(tweets)
             }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
                 failure?(error)

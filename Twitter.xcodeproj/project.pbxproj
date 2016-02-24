@@ -20,6 +20,9 @@
 		7C47E2E21C7C18A80097FB89 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C47E2E11C7C18A80097FB89 /* TweetCell.swift */; };
 		7C47E2E51C7C3B770097FB89 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C47E2E41C7C3B770097FB89 /* ComposeViewController.swift */; };
 		7C47E2E71C7CE0E80097FB89 /* ReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C47E2E61C7CE0E80097FB89 /* ReplyViewController.swift */; };
+		7C47E2E91C7D39440097FB89 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C47E2E81C7D39440097FB89 /* FavoriteButton.swift */; };
+		7C47E2EB1C7D3C0E0097FB89 /* RetweetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C47E2EA1C7D3C0E0097FB89 /* RetweetButton.swift */; };
+		7C47E2ED1C7D3C800097FB89 /* ReplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C47E2EC1C7D3C800097FB89 /* ReplyButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		7C47E2E11C7C18A80097FB89 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		7C47E2E41C7C3B770097FB89 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		7C47E2E61C7CE0E80097FB89 /* ReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyViewController.swift; sourceTree = "<group>"; };
+		7C47E2E81C7D39440097FB89 /* FavoriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
+		7C47E2EA1C7D3C0E0097FB89 /* RetweetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetweetButton.swift; sourceTree = "<group>"; };
+		7C47E2EC1C7D3C800097FB89 /* ReplyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyButton.swift; sourceTree = "<group>"; };
 		FF6C096BD6DE7C2E5342D554 /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +135,9 @@
 			isa = PBXGroup;
 			children = (
 				7C47E2E11C7C18A80097FB89 /* TweetCell.swift */,
+				7C47E2E81C7D39440097FB89 /* FavoriteButton.swift */,
+				7C47E2EA1C7D3C0E0097FB89 /* RetweetButton.swift */,
+				7C47E2EC1C7D3C800097FB89 /* ReplyButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -266,11 +275,14 @@
 				7C47E2DC1C7BED6B0097FB89 /* User.swift in Sources */,
 				7C47E2E71C7CE0E80097FB89 /* ReplyViewController.swift in Sources */,
 				7C47E2E21C7C18A80097FB89 /* TweetCell.swift in Sources */,
+				7C47E2E91C7D39440097FB89 /* FavoriteButton.swift in Sources */,
 				7C47E2DE1C7BED700097FB89 /* Tweet.swift in Sources */,
 				7C47E2E51C7C3B770097FB89 /* ComposeViewController.swift in Sources */,
 				7C47E2E01C7BFCA20097FB89 /* TweetsViewController.swift in Sources */,
 				7C47E2D61C7BE3140097FB89 /* LogInViewController.swift in Sources */,
+				7C47E2ED1C7D3C800097FB89 /* ReplyButton.swift in Sources */,
 				7C47E2D41C7BDDA40097FB89 /* TwitterClient.swift in Sources */,
+				7C47E2EB1C7D3C0E0097FB89 /* RetweetButton.swift in Sources */,
 				7C47E2BF1C7BDCA00097FB89 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
