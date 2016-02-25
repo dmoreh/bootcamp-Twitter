@@ -20,9 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if User.currentUser != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController")
+            let hvc = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController") as! HamburgerViewController
+            let mvc = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+            mvc.hamburgerViewController = hvc
+            hvc.menuViewController = mvc
 
-            window?.rootViewController = vc
+
+            window?.rootViewController = hvc
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName(
