@@ -21,9 +21,11 @@ class MenuViewController: UIViewController {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tvc = storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController")
-        self.viewControllers = [tvc]
+        let pvc = storyboard.instantiateViewControllerWithIdentifier("ProfileNavigationController")
+        self.viewControllers = [tvc, pvc]
         self.menuNames = [
-            tvc: "Home"
+            tvc: "Home",
+            pvc: "Profile"
         ]
 
         self.tableView.delegate = self

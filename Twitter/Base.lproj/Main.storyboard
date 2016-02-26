@@ -42,12 +42,54 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <segue destination="YWN-7u-O26" kind="presentation" identifier="loginSegue" id="YKM-6W-vqs"/>
+                        <segue destination="9rk-lP-wdE" kind="presentation" identifier="LoginSegue" id="cxu-9a-wZR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="306.5" y="477.5"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="OMO-4p-g22">
+            <objects>
+                <viewController id="0bG-FX-q11" customClass="ProfileViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xDl-3l-u5X"/>
+                        <viewControllerLayoutGuide type="bottom" id="N7h-WQ-DOp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j0b-VV-QkW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kXj-lp-QXg" userLabel="Profile Background Image View">
+                                <rect key="frame" x="0.0" y="64" width="375" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="B5x-Wy-dtt"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oJB-X7-iju">
+                                <rect key="frame" x="148.5" y="115" width="78" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="78" id="kF1-Dy-pbE"/>
+                                    <constraint firstAttribute="height" constant="78" id="tP7-bb-1kR"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kXj-lp-QXg" secondAttribute="trailing" id="Tt6-Jd-SfT"/>
+                            <constraint firstItem="oJB-X7-iju" firstAttribute="centerX" secondItem="kXj-lp-QXg" secondAttribute="centerX" id="c18-4n-sQ4"/>
+                            <constraint firstItem="kXj-lp-QXg" firstAttribute="top" secondItem="xDl-3l-u5X" secondAttribute="bottom" id="dm9-sJ-ant"/>
+                            <constraint firstItem="oJB-X7-iju" firstAttribute="centerY" secondItem="kXj-lp-QXg" secondAttribute="centerY" id="eef-bF-WlQ"/>
+                            <constraint firstItem="kXj-lp-QXg" firstAttribute="leading" secondItem="j0b-VV-QkW" secondAttribute="leading" id="kZi-Xd-WSu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="rb8-Hb-rUx"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="03G-Ce-frm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1228.5" y="-285.5"/>
         </scene>
         <!--Home-->
         <scene sceneID="X2y-10-iCI">
@@ -729,6 +771,25 @@
             </objects>
             <point key="canvasLocation" x="772.5" y="2139.5"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cs6-E7-fUb">
+            <objects>
+                <navigationController storyboardIdentifier="ProfileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Fih-tK-h2U" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zom-aT-wRR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0bG-FX-q11" kind="relationship" relationship="rootViewController" id="PCk-Zp-GYd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z99-Ch-E6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="772.5" y="-285.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="like-action" width="54" height="72"/>
@@ -736,6 +797,6 @@
         <image name="retweet-action" width="75" height="72"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Klz-sd-Mjo"/>
+        <segue reference="9of-cZ-CDw"/>
     </inferredMetricsTieBreakers>
 </document>
