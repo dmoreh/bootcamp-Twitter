@@ -11,6 +11,8 @@ import SVPullToRefresh
 
 class TweetsViewController: UIViewController {
 
+    var mentionsOnly: Bool = false
+
     @IBOutlet weak var tweetsTableView: UITableView!
     var tweets: [Tweet]! {
         didSet {
@@ -59,7 +61,7 @@ class TweetsViewController: UIViewController {
     }
 
     func fetchTweets() {
-        TwitterClient.sharedClient.homeTimeline(
+        TwitterClient.sharedClient.timeline(mentionsOnly: self.mentionsOnly,
             success: { (tweets: [Tweet]) -> Void in
                 self.tweets = tweets
                 self.tweetsTableView.pullToRefreshView.stopAnimating()
@@ -71,7 +73,7 @@ class TweetsViewController: UIViewController {
     }
 
     func fetchMoreTweets(beforeTweet lastTweet: Tweet? = nil) {
-        TwitterClient.sharedClient.homeTimeline(
+        TwitterClient.sharedClient.timeline(mentionsOnly: self.mentionsOnly,
             beforeTweet: lastTweet,
             success: { (tweets: [Tweet]) -> Void in
                 self.tweets.appendContentsOf(tweets)
@@ -122,6 +124,14 @@ extension TweetsViewController: TweetCellDelegate {
 
     func tweetCellDidTapReply(tweetCell: TweetCell) {
         self.performSegueWithIdentifier("ComposeSegue", sender: tweetCell)
+    }
+
+    func tweetCellDidTapProfileImage(tweetCell: TweetCell) {
+        let user = tweetCell.tweet.user
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let pvc = storyboard.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        pvc.user = user
+        self.navigationController?.pushViewController(pvc, animated: true)
     }
 }
 

@@ -12,10 +12,12 @@ import UIKit
     optional func tweetCellDidTapReply(tweetCell: TweetCell)
     optional func tweetCellDidTapRetweet(tweetCell: TweetCell)
     optional func tweetCellDidTapFavorite(tweetCell: TweetCell)
+    optional func tweetCellDidTapProfileImage(tweetCell: TweetCell)
 }
 
 class TweetCell: UITableViewCell {
 
+    @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
@@ -68,18 +70,23 @@ class TweetCell: UITableViewCell {
     }
 
     @IBAction func didTapReply(sender: AnyObject) {
-        delegate?.tweetCellDidTapReply?(self)
+        self.delegate?.tweetCellDidTapReply?(self)
     }
 
     @IBAction func didTapRetweet(sender: AnyObject) {
         self.retweetButton.retweeted = true
-        delegate?.tweetCellDidTapRetweet?(self)
+        self.delegate?.tweetCellDidTapRetweet?(self)
     }
 
     @IBAction func didTapFavorite(sender: AnyObject) {
         self.favoriteButton.favorited = true
-        delegate?.tweetCellDidTapFavorite?(self)
+        self.delegate?.tweetCellDidTapFavorite?(self)
     }
+
+    @IBAction func didTapProfileButton(sender: AnyObject) {
+        self.delegate?.tweetCellDidTapProfileImage?(self)
+    }
+
 }
 
 extension NSDate {

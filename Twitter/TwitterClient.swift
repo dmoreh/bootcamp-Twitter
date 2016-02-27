@@ -37,14 +37,19 @@ class TwitterClient: BDBOAuth1SessionManager {
     private var loginFailure: FailureCallback?
 
     var delegate: TwitterClientDelegate?
-
-    func homeTimeline(beforeTweet lastTweet: Tweet? = nil, success: (([Tweet]) -> Void)?, failure: FailureCallback?) {
+    
+    func timeline(beforeTweet lastTweet: Tweet? = nil, mentionsOnly: Bool = false, success: (([Tweet]) -> Void)?, failure: FailureCallback?) {
 
         var parameters: NSDictionary? = nil
         if let lastTweet = lastTweet {
             parameters = ["max_id": lastTweet.id - 1]
         }
-        GET("1.1/statuses/home_timeline.json",
+
+        var path = "1.1/statuses/home_timeline.json"
+        if mentionsOnly {
+            path = "1.1/statuses/mentions_timeline.json"
+        }
+        GET(path,
             parameters: parameters,
             progress: nil,
             success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in

@@ -1,8 +1,8 @@
 # Project 3 - *Twitter*
 
-**Twitter** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
+**Twitter** is a basic twitter app to read and compose tweets using the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **16** hours spent in total
+Time spent: **30** hours spent in total
 
 ## User Stories
 
@@ -30,17 +30,41 @@ The following **additional** features are implemented:
 - [x] Smart timestamp labels, e.g. "4m", "16h", or "2/23/15"
 - [x] Option to mock all posts from TwitterClient.
 
+## Twitter Redux User Stories
+
+- [x] Hamburger menu
+   - [x] Dragging anywhere in the view should reveal the menu.
+   - [x] The menu should include links to your profile, the home timeline, and the mentions view.
+   - [x] The menu can look similar to the LinkedIn menu below or feel free to take liberty with the UI.
+- [x] Profile page
+   - [x] Contains the user header view
+   - [x] Contains a section with the users basic stats: # tweets, # following, # followers
+- [x] Home Timeline
+   - [x] Tapping on a user image should bring up that user's profile page
+
+The following **optional** features are implemented:
+
+- [ ] Profile Page
+   - [ ] Implement the paging view for the user description.
+   - [ ] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
+   - [ ] Pulling down the profile page should blur and resize the header image.
+- [ ] Account switching
+   - [ ] Long press on tab bar to bring up Account view with animation
+   - [ ] Tap account to switch to
+   - [ ] Include a plus button to Add an Account
+   - [ ] Swipe to delete an account
+
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/vhx9o7Y.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
+<img src='http://i.imgur.com/G5L5NeO.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-## Notes
-
-Describe any challenges encountered while building the app.
 
 ## License
 
